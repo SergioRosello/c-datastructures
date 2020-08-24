@@ -11,9 +11,14 @@ struct Node* nextNode(struct Node* node){
   return node->nextNode;
 }
 
-int add(struct Node* node, struct Node* last){
+int add(struct Node* node, struct Node* last, struct LinkedList* list){
+  // If the list is empty
+  if(node == NULL){
+    // Make this node the first node of the list (We need the list)
+    list->firstNode = last;
+  }
   // If node is not the end of the list:
-  if(node->nextNode != NULL){
+  else if(node->nextNode != NULL){
     last->nextNode = node->nextNode;
     last->previousNode = node;
     node->nextNode = last;
@@ -21,29 +26,22 @@ int add(struct Node* node, struct Node* last){
   else{ // If node is at the end of the list
     node->nextNode = last;
     last->previousNode = node;
+    last->nextNode = NULL;
   }
   return 0;
 }
 //
 // Ads to last location of linked list
 int addToLastLocation(struct Node* node, struct LinkedList* list){
-  // If list has no nodes:
-  if(list->firstNode == NULL){
-    struct Node newNode = NEW_NODE;
-    list->firstNode = &newNode;
-  }
-  else{
-    struct Node* lastNode = getLastNode(list);
-    add(lastNode, node);
-  }
-
+  struct Node* lastNode = getLastNode(list);
+  add(lastNode, node, list);
   return 0;
 }
 
 // Returns a pointer to the last node from the list
 struct Node* getLastNode(struct LinkedList* list){
   struct Node* tmp = list->firstNode;
-  for (int i = 0; tmp->nextNode != NULL; ++i) {
+  while (list->firstNode != NULL && tmp->nextNode != NULL) {
     tmp = tmp->nextNode;
   }
   return tmp;
@@ -56,15 +54,23 @@ int addToXLocation(struct Node* node, struct LinkedList* list, int location){
 
 struct Node* getNode(int location);
 
-int del(struct Node* node){
+int del(struct Node* node, struct LinkedList *list){
   // If it is at the middle of the list:
-  if(node->nextNode != NULL){
+  if(node->nextNode != NULL && node->previousNode != NULL){
+    printf("Enter middle of list deletion\n");
     node->previousNode->nextNode = node->nextNode;
     node->nextNode->previousNode = node->previousNode;
   }
-  else{ // If it is at the end of the list
+  else if(node->previousNode != NULL && node->nextNode == NULL){ // If it the last element node on the list
+    printf("Enter last element of list deletion\n");
     node->previousNode->nextNode = NULL;
+  } 
+  else if(node->previousNode == NULL && node->nextNode == NULL){ // If it the only element in the list
+    printf("Enter only element of list deletion\n");
+    list->firstNode = NULL;
   }
+  node = NULL;
   // Subtract 1 from linked list counter
+  list->size--;
   return 0;
 }

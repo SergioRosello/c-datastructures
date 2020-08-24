@@ -19,7 +19,7 @@ struct Node* previousNode(struct Node*);
 struct Node* nextNode(struct Node*);
 
 // Adds the node passed as argument to the end of the list
-int add(struct Node*, struct Node*);
+int add(struct Node*, struct Node*, struct LinkedList*);
 
 // Ads to last location of linked list
 int addToLastLocation(struct Node*, struct LinkedList*);
@@ -33,4 +33,4 @@ struct Node* getNode(int);
 struct Node* getLastNode(struct LinkedList* list);
 
 // Removes the last node on the list
-int del(struct Node*);
+int del(struct Node*, struct LinkedList*);
