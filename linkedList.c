@@ -40,16 +40,15 @@ int addToLastLocation(struct Node* node, struct LinkedList* list){
   return 0;
 }
 
+// Returns a pointer to the last node from the list
 struct Node* getLastNode(struct LinkedList* list){
   struct Node* tmp = list->firstNode;
-  for (int i = 0; i < list->size; ++i) {
-    printf("Node %d\n", i);
-    //tmp = tmp->nextNode;
+  for (int i = 0; tmp->nextNode != NULL; ++i) {
+    tmp = tmp->nextNode;
   }
   return tmp;
 }
 
-//
 // Ads to location X of linked list
 int addToXLocation(struct Node* node, struct LinkedList* list, int location){
   return 0;
@@ -61,6 +60,7 @@ int del(struct Node* node){
   // If it is at the middle of the list:
   if(node->nextNode != NULL){
     node->previousNode->nextNode = node->nextNode;
+    node->nextNode->previousNode = node->previousNode;
   }
   else{ // If it is at the end of the list
     node->previousNode->nextNode = NULL;

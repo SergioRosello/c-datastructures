@@ -25,8 +25,11 @@ int main(int argc, char *argv[])
   add(&secondNode, &fifthNode);
   add(&firstNode, &fourthNode);
   printList(&llist);
+  printf("------------------------------\n");
   del(&secondNode);
+  printf("------------------------------\n");
   printList(&llist);
+  printf("------------------------------\n");
 
   struct Node* lastNode = getLastNode(&llist);
   printf("Last node data: %s\n", (char *) lastNode->data);
@@ -35,11 +38,12 @@ int main(int argc, char *argv[])
 
 void printList(struct LinkedList* llist){
   int i = 0;
-  printf("Node %d data: %s\n", i, (char *) llist->firstNode->data);
+  struct Node* tmp = llist->firstNode;
+  printf("Node %d data: %s\n", i, (char *) tmp->data);
   i++;
-  while (llist->firstNode->nextNode != NULL) {
-    printf("Node %d data: %s\n", i, (char *) llist->firstNode->nextNode->data);
+  while (tmp->nextNode != NULL) {
+    printf("Node %d data: %s\n", i, (char *) tmp->nextNode->data);
     i++;
-    llist->firstNode = llist->firstNode->nextNode;
+    tmp = tmp->nextNode;
   }
 }

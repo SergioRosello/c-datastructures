@@ -1,3 +1,4 @@
+#include <stdio.h>
 #define NEW_NODE {NULL, NULL, NULL}
 
 struct Node {
@@ -29,7 +30,7 @@ int addToXLocation(struct Node*, struct LinkedList*, int location);
 // Return a pointer to the node at location passed by argument
 struct Node* getNode(int);
 
-struct Node* getLastNode(struct LinkedList*);
+struct Node* getLastNode(struct LinkedList* list);
 
 // Removes the last node on the list
 int del(struct Node*);
