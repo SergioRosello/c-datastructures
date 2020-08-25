@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
   thirdNode.data = "Data from third node!\n";
   struct Node fourthNode = NEW_NODE;
   fourthNode.data = "Data from fourth node!\n";
-  //struct Node fifthNode = NEW_NODE;
-  //fifthNode.data = "Data from fifth node!\n";
+  struct Node fifthNode = NEW_NODE;
+  fifthNode.data = "Data from fifth node!\n";
 
   struct LinkedList llist = {NULL, 0};
 
@@ -25,12 +25,6 @@ int main(int argc, char *argv[])
 
   printList(&llist);
 
-  //printf("Deleting first node\n");
-  //del(&firstNode, &llist);
-  //printList(&llist);
-  //TODO: Check Node deletion method, as it's not very well implemented
-  // Problem comes when a node in index 1, which is in the middle of the list
-  // is changed to being the first node of the list.
   printf("Deleting first node\n");
   del(&firstNode, &llist);
   printList(&llist);
@@ -44,15 +38,8 @@ int main(int argc, char *argv[])
   del(&fourthNode, &llist);
   printList(&llist);
 
-  //TODO: Problems await ahead
-  //printf("Deleting first node\n");
-  //del(&firstNode, &llist);
-  //printList(&llist);
-//
-  //addToLastLocation(&fourthNode, &llist);
-  //printf("Added to last location\n");
-  //printList(&llist);
-
+  addToLastLocation(&fifthNode, &llist);
+  printList(&llist);
   return 0;
 }
 

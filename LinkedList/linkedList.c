@@ -80,8 +80,9 @@ int del(struct Node* node, struct LinkedList *list){
   // It's the first element of the list
   else if(node->previousNode == NULL && node->nextNode != NULL){
     printf("First node of list going to be deleted\n");
+    node->previousNode = NULL;
     list->firstNode = node->nextNode;
-    node->nextNode->previousNode = list->firstNode;
+    list->firstNode->previousNode = NULL;
   }
   else if(node->previousNode == NULL && node->nextNode == NULL){ // If it the only element in the list
     list->firstNode = NULL;
