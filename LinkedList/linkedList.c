@@ -49,25 +49,41 @@ struct Node* getLastNode(struct LinkedList* list){
 }
 
 // Ads to location X of linked list
-int addToXLocation(struct Node* node, struct LinkedList* list, int location){
+int addToIndex(struct Node* node, struct LinkedList* list, int location){
+  struct Node* tmp = getNode(location, list);
+  add(tmp, node, list);
   return 0;
 }
 
-struct Node* getNode(int location);
+struct Node* getNode(int index, struct LinkedList* list){
+  struct Node* tmp = NULL;
+  if (index < list->size){
+    tmp = list->firstNode;
+    for (int i = 1; i < index && tmp; ++i) {
+      tmp = tmp->nextNode;
+    }
+  }
+  return tmp;
+}
 
 int del(struct Node* node, struct LinkedList *list){
   // If it is at the middle of the list:
   if(node->nextNode != NULL && node->previousNode != NULL){
-    printf("Enter middle of list deletion\n");
+    printf("Deleting a node in the middle of the list\n");
     node->previousNode->nextNode = node->nextNode;
     node->nextNode->previousNode = node->previousNode;
   }
   else if(node->previousNode != NULL && node->nextNode == NULL){ // If it the last element node on the list
-    printf("Enter last element of list deletion\n");
+    printf("Last element on list deletion\n");
     node->previousNode->nextNode = NULL;
   } 
+  // It's the first element of the list
+  else if(node->previousNode == NULL && node->nextNode != NULL){
+    printf("First node of list going to be deleted\n");
+    list->firstNode = node->nextNode;
+    node->nextNode->previousNode = list->firstNode;
+  }
   else if(node->previousNode == NULL && node->nextNode == NULL){ // If it the only element in the list
-    printf("Enter only element of list deletion\n");
     list->firstNode = NULL;
   }
   node = NULL;

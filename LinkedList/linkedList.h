@@ -24,11 +24,11 @@ int add(struct Node*, struct Node*, struct LinkedList*);
 // Ads to last location of linked list
 int addToLastLocation(struct Node*, struct LinkedList*);
 //
-// Ads to location X of linked list
-int addToXLocation(struct Node*, struct LinkedList*, int location);
+// Ads to location location of linked list
+int addToIndex(struct Node*, struct LinkedList*, int location);
 
 // Return a pointer to the node at location passed by argument
-struct Node* getNode(int);
+struct Node* getNode(int, struct LinkedList*);
 
 struct Node* getLastNode(struct LinkedList* list);
 
