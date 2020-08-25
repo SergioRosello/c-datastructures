@@ -9,7 +9,7 @@ struct Node {
 
 struct LinkedList {
   struct Node* firstNode;
-  int size;
+  unsigned int size;
 };
 
 // Returns the previous node on the list

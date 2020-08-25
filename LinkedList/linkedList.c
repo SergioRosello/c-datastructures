@@ -28,6 +28,7 @@ int add(struct Node* node, struct Node* last, struct LinkedList* list){
     last->previousNode = node;
     last->nextNode = NULL;
   }
+  list->size++;
   return 0;
 }
 //
