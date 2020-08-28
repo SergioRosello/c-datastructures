@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
   thirdNode.data = "Data from third node!\n";
   struct Node fourthNode = NEW_NODE;
   fourthNode.data = "Data from fourth node!\n";
-  struct Node fifthNode = NEW_NODE;
-  fifthNode.data = "Data from fifth node!\n";
+  //struct Node fifthNode = NEW_NODE;
+  //fifthNode.data = "Data from fifth node!\n";
 
   struct LinkedList llist = {NULL, 0};
 
@@ -25,21 +25,6 @@ int main(int argc, char *argv[])
 
   printList(&llist);
 
-  printf("Deleting first node\n");
-  del(&firstNode, &llist);
-  printList(&llist);
-  printf("Deleting third node\n");
-  del(&thirdNode, &llist);
-  printList(&llist);
-  printf("Deleting second node\n");
-  del(&secondNode, &llist);
-  printList(&llist);
-  printf("Deleting fourth node\n");
-  del(&fourthNode, &llist);
-  printList(&llist);
-
-  addToLastLocation(&fifthNode, &llist);
-  printList(&llist);
   return 0;
 }
 

@@ -12,12 +12,6 @@ struct LinkedList {
   unsigned int size;
 };
 
-// Returns the previous node on the list
-struct Node* previousNode(struct Node*);
-
-// Returns the next node on the list
-struct Node* nextNode(struct Node*);
-
 // Adds the node passed as argument to the end of the list
 int add(struct Node*, struct Node*, struct LinkedList*);
 

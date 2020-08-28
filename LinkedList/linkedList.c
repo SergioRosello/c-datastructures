@@ -1,41 +1,38 @@
 #include "linkedList.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-
-struct Node* previousNode(struct Node* node){
-  return node->previousNode;
-}
-
-struct Node* nextNode(struct Node* node){
-  return node->nextNode;
-}
-
-int add(struct Node* node, struct Node* last, struct LinkedList* list){
+int add(struct Node* node, struct Node* newNode, struct LinkedList* list){
   // If the list is empty
   if(node == NULL){
     // Make this node the first node of the list (We need the list)
-    list->firstNode = last;
+    printf("Empty list\n");
+    list->firstNode = newNode;
   }
   // If node is not the end of the list:
   else if(node->nextNode != NULL){
-    last->nextNode = node->nextNode;
-    last->previousNode = node;
-    node->nextNode = last;
+    // If the node is the first of the list
+    // else if(node->previousNode == NULL && node->nextNode != NULL){
+    printf("middle list\n");
+    newNode->nextNode = node->nextNode;
+    newNode->previousNode = node;
+    node->nextNode = newNode;
   }
   else{ // If node is at the end of the list
-    node->nextNode = last;
-    last->previousNode = node;
-    last->nextNode = NULL;
+    printf("end list\n");
+    node->nextNode = newNode;
+    newNode->previousNode = node;
+    newNode->nextNode = NULL;
   }
   list->size++;
   return 0;
 }
-//
+
 // Ads to last location of linked list
 int addToLastLocation(struct Node* node, struct LinkedList* list){
-  struct Node* lastNode = getLastNode(list);
-  add(lastNode, node, list);
+  struct Node* last = getLastNode(list);
+  add(last, node, list);
   return 0;
 }
 
@@ -48,10 +45,29 @@ struct Node* getLastNode(struct LinkedList* list){
   return tmp;
 }
 
+int addToFirstLocation(struct Node* node, struct LinkedList* list){
+  node->previousNode = NULL;
+  node->nextNode = list->firstNode;
+  list->firstNode->previousNode = node;
+  list->firstNode = node;
+  list->size++;
+  return 0;
+}
+
 // Ads to location X of linked list
+// TODO: Check index at which node is added 
 int addToIndex(struct Node* node, struct LinkedList* list, int location){
-  struct Node* tmp = getNode(location, list);
-  add(tmp, node, list);
+  struct Node* tmp = NULL;
+  assert(location < list->size);
+  if(location == 0){
+    addToFirstLocation(node, list);
+  }else{
+    tmp = getNode(location, list);
+    // node, next, list
+    // When we add the node to the index, it doesnt have enther a previousNode or a nextNode.
+    add(tmp, node, list);
+    printf("tmp node data: %s\n", (char*) tmp->data);
+  }
   return 0;
 }
 
@@ -63,6 +79,7 @@ struct Node* getNode(int index, struct LinkedList* list){
       tmp = tmp->nextNode;
     }
   }
+  printf("GetNode return: %s\n", (char*) tmp->data);
   return tmp;
 }
 
@@ -73,7 +90,8 @@ int del(struct Node* node, struct LinkedList *list){
     node->previousNode->nextNode = node->nextNode;
     node->nextNode->previousNode = node->previousNode;
   }
-  else if(node->previousNode != NULL && node->nextNode == NULL){ // If it the last element node on the list
+  // If it the last element node on the list
+  else if(node->previousNode != NULL && node->nextNode == NULL){ 
     printf("Last element on list deletion\n");
     node->previousNode->nextNode = NULL;
   } 
@@ -84,7 +102,8 @@ int del(struct Node* node, struct LinkedList *list){
     list->firstNode = node->nextNode;
     list->firstNode->previousNode = NULL;
   }
-  else if(node->previousNode == NULL && node->nextNode == NULL){ // If it the only element in the list
+  // If it the only element in the list
+  else if(node->previousNode == NULL && node->nextNode == NULL){ 
     list->firstNode = NULL;
   }
   node = NULL;
